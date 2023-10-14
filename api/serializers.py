@@ -8,15 +8,15 @@ class StudySessionSerializer(serializers.ModelSerializer):
     finished_at = serializers.CharField(required=False, read_only=True)
     session_id = serializers.CharField(required=False, read_only=True)
     status = serializers.CharField(required=False, read_only=True)
-    session_name = serializers.CharField(required=False, read_only=True)
+    # session_name = serializers.CharField(required=False, read_only=True)
     class Meta:
         model = StudySession
         fields = ['session_name','session_id', 'pdf_file', 'pdf_url', 'created_at','finished_at','status']
 
     def create(self, data):        
-        data['session_name'] = 'some thing'  
+        #data['session_name'] = 'some thing'  
         studysession= StudySession.objects.create(
-            session_name = data['session_name'],
+            session_name = data.get("session_name"),
             pdf_file = data.get("pdf_file")
         )
 
@@ -27,9 +27,9 @@ class StudySessionSerializer(serializers.ModelSerializer):
         data['pdf_url'] = studysession.pdf_file.url
         data['status'] = 'Session Created Sucessfully '
         data['finished_at'] = 'Session not closed'
-        data['session_name'] = "Topic : " + studysession.pdf_file.url[7:-4] 
-        studysession.session_name = data['session_name']
-        studysession.save()
+        # data['session_name'] = "Topic : " + studysession.pdf_file.url[7:-4] 
+        # studysession.session_name = data['session_name']
+        # studysession.save()
         return data
     
 class AssessmentSerializer(serializers.ModelSerializer):
