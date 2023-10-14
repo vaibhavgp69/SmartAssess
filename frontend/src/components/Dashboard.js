@@ -14,6 +14,7 @@ export function Dashboard(){
     const [library,setLibrary] = useState([])
     const [data,setData] = useState()
     const [s,setS] = useState()
+    const [topic,setTopic] = useState('Everything')
 
     useEffect(()=>{
         getAPIData()
@@ -48,7 +49,7 @@ export function Dashboard(){
     const saveAPIData2 = async(i)=>{
       console.log(JSON.stringify({
         "session_id":i,
-        "topic":"Transmission Control Protocol"
+        "topic":topic
     }))
       const url = 'http://127.0.0.1:8000/api/newassessment'
         let result = await fetch(url,{
@@ -56,7 +57,7 @@ export function Dashboard(){
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify({
               "session_id":i,
-              "topic":"Transmission Control Protocol"
+              "topic":topic
           })
         })
 
@@ -139,11 +140,15 @@ export function Dashboard(){
         <Button
           ripple={false}
           fullWidth={true}
-          className="bg-blue-gray-900/10 text-blue-gray-900 mt-5 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+          className="bg-blue-gray-900/10 text-blue-gray-900 mt-5 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 mb-5"
           onClick={()=>saveAPIData2(i.session_id)}
         >
           Assessment                
         </Button>
+
+        <Input onChange={(e)=>setTopic(e.target.value)} value={topic} size="lg" label="Topic" type="text" className="" required/>
+
+
 
       </CardFooter>
     </Card>
