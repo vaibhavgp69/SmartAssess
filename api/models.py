@@ -14,7 +14,7 @@ class StudySession(models.Model):
         return self.session_name + "   Created session at : " +str(self.created_at) + "      Ended session at  : " +str(self.finished_at) 
     
 class Assessment(models.Model):
-     
+    session_id = models.CharField(max_length=1000, default = "")
     assesment_id = models.ForeignKey(StudySession, on_delete=models.CASCADE)
     easy_questions = models.CharField(max_length=1000, default = "")
     med_questions = models.CharField(max_length=1000, default = "")
