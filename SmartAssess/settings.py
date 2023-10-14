@@ -78,6 +78,8 @@ TEMPLATES = [
     },
 ]
 
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+
 WSGI_APPLICATION = "SmartAssess.wsgi.application"
 
 
