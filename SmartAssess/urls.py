@@ -55,6 +55,17 @@ urlpatterns = [
 # /auth/users/ --> Register user with email,username , password - DJOSER
 
 
+#WITHOUT REFRESHTOKENS (simple) :
+
+#http://127.0.0.1:8000/api/api-token-auth/  ---> send username , password as fields , u will get one token , store it
+#save this token till user logout , then clear that token
+#u can get back token anytime by hitting this same url if u lost it
+
+
+
+#WITH REFRESH TOKENS (+2 difficulty): 
+
+
 #/api/token/ --> GENERATE ACESS AND REFRESH TOKEN during user login with username/(optional email) and passwoerd POST request
 #/api/token/refresh --> Generate new acess token every 5 minutes , POST request with 'refresh' variable
 #/api/token/blacklist
