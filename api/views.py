@@ -43,5 +43,10 @@ class AssesmentView(generics.ListCreateAPIView):
     serializer_class = AssessmentSerializer
 
 
+class McqView(generics.ListCreateAPIView):
+    queryset = Mcq.objects.all()
+    serializer_class = McqSerializer
+
+
 
 
