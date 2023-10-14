@@ -37,3 +37,11 @@ def manager_view(request):
 class StudySessionView(generics.ListCreateAPIView):
     queryset = StudySession.objects.all()
     serializer_class = StudySessionSerializer
+
+class AssesmentView(generics.ListCreateAPIView):
+    queryset = Assessment.objects.all()
+    serializer_class = AssessmentSerializer
+
+
+
+
