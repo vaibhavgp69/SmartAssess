@@ -14,5 +14,6 @@ urlpatterns = [
     # path('v1/file/<int:pk>', Files_APIView_Detail.as_view()),
     path('newsession', views.StudySessionView.as_view(), name = 'newsession'),
     path('newassessment', views.AssesmentView.as_view(), name = 'newassessment'),
+    path('newmcq', views.McqView.as_view(), name = 'newmcq'),
 
 ]
