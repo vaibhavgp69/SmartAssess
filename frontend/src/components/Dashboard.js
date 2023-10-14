@@ -45,6 +45,29 @@ export function Dashboard(){
         console.log(library)
     }
 
+    const saveAPIData2 = async(i)=>{
+      console.log(JSON.stringify({
+        "session_id":i,
+        "topic":"Transmission Control Protocol"
+    }))
+      const url = 'http://127.0.0.1:8000/api/newassessment'
+        let result = await fetch(url,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({
+              "session_id":i,
+              "topic":"Transmission Control Protocol"
+          })
+        })
+
+       result = await result.json()
+       window.location.replace(`/assess/${result.assessment_id}`)
+       console.log(result)
+    }
+
+
+
+
     return(
 
         <div>
@@ -117,8 +140,9 @@ export function Dashboard(){
           ripple={false}
           fullWidth={true}
           className="bg-blue-gray-900/10 text-blue-gray-900 mt-5 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+          onClick={()=>saveAPIData2(i.session_id)}
         >
-          Assessment
+          Assessment                
         </Button>
 
       </CardFooter>

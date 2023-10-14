@@ -12,25 +12,21 @@ import {
 
 
 const Stopwatch = () => {
+
 const [time, setTime] = useState(0);
-const [data,setData] = useState({question:"Who does vibhav love most?",Answer1:"kisn",Answer2:"rushli",Answer3:"vibhav",Answer4:"chavna",Correct:"chavna"})
+const [data,setData] = useState({})
 const [isRunning, setIsRunning] = useState(false);
 const [post,setPost] = useState({seconds:0,correct:0})
 const [curr,setCurr] = useState(0)
+const [isLoading,setIsLoading] = useState(0)
+const aid = parseInt(window.location.href.slice(-2,))
 
 function hc(){
-console.log(curr)
-console.log(minutes)
-console.log(seconds)
-console.log(data.Correct)
-setPost({seconds:seconds,correct:curr})
-setData({question:"Who does palli love most?",Answer1:"hita",Answer2:"shree",Answer3:"aryn",Answer4:"kisn",Correct:"kisn"})
-setTime(0)
-console.log(post)
+saveAPIData2()
+window.open("/home","_self")
 }
 
 useEffect(() => {
-    setIsRunning(1)
     setPost({seconds:(60*minutes)+seconds,correct:curr})
 
     let intervalId;
@@ -49,39 +45,75 @@ const seconds = Math.floor((time % 6000) / 100);
 
 const milliseconds = time % 100;
 
+const saveAPIData2 = async()=>{
+  console.log(JSON.stringify({
+    "assessment_id":aid,
+    "is_correct":curr,
+    "time_taken":(minutes*60)+seconds
+}))
+  const url = 'http://127.0.0.1:8000/api/newmcq'
+  setIsLoading(1)
+    let result = await fetch(url,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          "assessment_id":aid,
+          "is_correct":curr,
+          "time_taken":(minutes*60)+seconds
+      })
+    })
+
+   result = await result.json()
+   setData(result)
+   console.log(data)
+   setIsRunning(1)
+}
+
+  function reset(){
+    setTime(0)
+    setIsRunning(0)
+    saveAPIData2()
+  }
+
   return (
     <div className="h-[720px]">
     <br></br>
     <br></br>
     <div></div>
-      
       <div className="stopwatch-buttons">
         
       </div>
     <br></br>
     <br></br>
- 
     <Typography className="text-center  " variant="h2">{data.question}</Typography>
-    
+    <br></br>
+    <Typography className="text-center  " color="blue" variant="h5">1. {data.option_a}</Typography>
+    <br></br>
+    <Typography className="text-center  " color="blue" variant="h5">2. {data.option_b}</Typography>
+    <br></br>
+    <Typography className="text-center  " color="blue" variant="h5">3. {data.option_c}</Typography>
+    <br></br>
+    <Typography className="text-center  " color="blue" variant="h5">4. {data.option_d}</Typography>
+    <br></br>
     <br></br>
     <div className="flex">
       <Tabs value="html" orientation="vertical" className="ml-[42rem]">
         <TabsHeader className="w-32" >
             
-            <Tab onClick={()=>setCurr(1?data.Answer1===data.Correct:0)} value={data.Answer1} >
-              {data.Answer1}
+            <Tab onClick={()=>setCurr(1?data.correct_answer==='a':0)} value='A' >
+              1
             </Tab>
 
-            <Tab onClick={()=>setCurr(1?data.Answer2===data.Correct:0)} value={data.Answer2} >
-              {data.Answer2}
+            <Tab onClick={()=>setCurr(1?data.correct_answer==='b':0)} value='B' >
+              2
             </Tab>
 
-            <Tab onClick={()=>setCurr(1?data.Answer3===data.Correct:0)} value={data.Answer3} >
-              {data.Answer3}
+            <Tab onClick={()=>setCurr(1?data.correct_answer==='c':0)} value='C' >
+              3
             </Tab>
 
-            <Tab onClick={()=>setCurr(1?data.Answer4===data.Correct:0)} value={data.Answer4} >
-              {data.Answer4}
+            <Tab onClick={()=>setCurr(1?data.correct_answer==='d':0)} value='D' >
+              4
             </Tab>
 
         </TabsHeader>
@@ -98,7 +130,8 @@ const milliseconds = time % 100;
       
     </div>
     <br></br>
-    <Button className="ml-[43rem]" onClick={hc}>Submit</Button>
+    <Button className="ml-[43rem]" onClick={reset}>Submit</Button>
+    <Button className="ml-[43rem] px-[2.2rem] mt-5" onClick={hc}>End</Button>
 
 
     </div>
