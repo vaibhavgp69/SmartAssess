@@ -145,8 +145,8 @@ REST_FRAMEWORK = {
 DJOSER = {
 
     "USER_ID_FIELD":"username",
-    'LOGIN_FIELD': "username"
-    # "LOGIN_FIELD":"email"  -----> this is for email 
+    # 'LOGIN_FIELD': "username",
+    # "LOGIN_FIELD":"email",
 }
 
 SIMPLE_JWT = {
