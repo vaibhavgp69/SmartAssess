@@ -11,8 +11,8 @@ export function Register(){
 
     const [data,setData] = useState(
         {
-            username:"",
             email:"",
+            username:"",
             password:""
         }
     )
@@ -36,14 +36,14 @@ export function Register(){
        result = await result
        console.log(result)
        return result;
-       
 
     }
     console.log(data)
     
     return(
     <div>
-        <Card color="transparent" shadow={false}>
+      <div className="mb-[4rem]"><br></br></div>
+        <Card color="transparent" className="py-[8rem] px-[35rem]" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Sign Up
         </Typography>
@@ -71,4 +71,3 @@ export function Register(){
     </div>
     )
 }
-
