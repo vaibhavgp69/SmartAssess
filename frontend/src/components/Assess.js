@@ -50,7 +50,8 @@ const seconds = Math.floor((time % 6000) / 100);
 const milliseconds = time % 100;
 
   return (
-    <div className="stopwatch-container">
+    <div className="h-[720px]">
+    <br></br>
     <br></br>
     <div></div>
       
