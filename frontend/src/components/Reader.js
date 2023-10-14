@@ -1,57 +1,8 @@
-import React, {useState} from 'react'
-import { Document,Page } from 'react-pdf';
-export function Reader() {
-
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  function onDocumentLoadSuccess({numPages}){
-    setNumPages(numPages);
-    setPageNumber(1);
-  }
-
-  function changePage(offSet){
-    setPageNumber(prevPageNumber => prevPageNumber + offSet);
-  }
-
-  function changePageBack(){
-    changePage(-1)
-  }
-
-  function changePageNext(){
-    changePage(+1)
-  }
-
-  return (
-    <div >
-      <header>
-        <Document file="F:/Programming/Hackathon/SmartAssess/media/Cat.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-          <Page height="600" pageNumber={pageNumber} />
-        </Document>
-        <p> Page {pageNumber} of {numPages}</p>
-        { pageNumber > 1 && 
-        <button onClick={changePageBack}>Previous Page</button>
-        }
-        {
-          pageNumber < numPages &&
-          <button onClick={changePageNext}>Next Page</button>
-        }
-      </header>
-      <center>
+export function Reader(){
+    return(
         <div>
-          <Document file="F:/Programming/Hackathon/SmartAssess/media/Kushal.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-            {Array.from(
-              new Array(numPages),
-              (el,index) => (
-                <Page 
-                  key={`page_${index+1}`}
-                  pageNumber={index+1}
-                />
-              )
-            )}
-          </Document>
+             <object data="http://127.0.0.1:8000/media/noc23-cs97.pdf" type="application/pdf" style={{width:"60%",height:"1920px",paddingBottom:'70%'}}>
+          </object>
         </div>
-      </center>
-    </div>
-  );
+        )
 }
