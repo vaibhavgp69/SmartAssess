@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
 
 ]
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -78,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+
 
 WSGI_APPLICATION = "SmartAssess.wsgi.application"
 
@@ -146,7 +147,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':  [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
 
     ],
 }
@@ -154,8 +155,8 @@ REST_FRAMEWORK = {
 DJOSER = {
 
     "USER_ID_FIELD":"username",
-    # 'LOGIN_FIELD': "username",
-    # "LOGIN_FIELD":"email",
+    'LOGIN_FIELD': "username"
+    # "LOGIN_FIELD":"email"  -----> this is for email 
 }
 
 SIMPLE_JWT = {

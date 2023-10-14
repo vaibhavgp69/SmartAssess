@@ -63,6 +63,7 @@ document_root=settings.MEDIA_ROOT)
 #WITHOUT REFRESHTOKENS (simple) :
 
 #http://127.0.0.1:8000/api/api-token-auth/  ---> send username , password as fields , u will get one token , store it
+
 #save this token till user logout , then clear that token
 #u can get back token anytime by hitting this same url if u lost it
 
