@@ -24,6 +24,8 @@ console.log(minutes)
 console.log(seconds)
 console.log(data.Correct)
 setPost({seconds:seconds,correct:curr})
+setData({question:"Who does palli love most?",Answer1:"hita",Answer2:"shree",Answer3:"aryn",Answer4:"kisn",Correct:"kisn"})
+setTime(0)
 console.log(post)
 }
 
