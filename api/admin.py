@@ -1,4 +1,7 @@
 from django.contrib import admin
-from .models import File
+from . import models
+
+
 # Register your models here.
-admin.site.register(File)
+admin.site.register(models.StudySession)
+admin.site.register(models.Assessment)

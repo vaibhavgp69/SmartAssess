@@ -1,22 +1,32 @@
 from rest_framework import serializers
-from .models import File
+from .models import StudySession
 
-class FileListSerializer(serializers.Serializer) :
-    name = serializers.CharField(max_length=50)
-    one_file = serializers.ListField(
-                       child=serializers.FileField( max_length=100000,
-                                         allow_empty_file=False,
-                                         use_url=False )
-                                )
-    
-    def create(self, validated_data):
-        name=validated_data.pop('name')
-        one_file=validated_data.pop('one_file')
-        for file in one_file:
-            f = File.objects.create(name=name, one_file=file,**validated_data)
-        return f
-
-class FileSerializer(serializers.ModelSerializer):
+class StudySessionSerializer(serializers.ModelSerializer):
+    created_at = serializers.CharField(required=False, read_only=True)
+    pdf_url = serializers.CharField(required=False, read_only=True)
+    finished_at = serializers.CharField(required=False, read_only=True)
+    session_id = serializers.CharField(required=False, read_only=True)
+    status = serializers.CharField(required=False, read_only=True)
     class Meta:
-        model = File  
-        fields = '__all__'
+        model = StudySession
+        fields = ['session_name','session_id', 'pdf_file', 'pdf_url', 'created_at','finished_at','status']
+
+    def create(self, data):          
+        eval = "some stuff"
+        question = "some stuff"
+
+
+        studysession= StudySession.objects.create(
+            session_name = data.get("session_name"),
+            pdf_file = data.get("pdf_file")
+        )
+
+
+        studysession.save()
+        data['created_at'] = studysession.created_at
+        data['session_id'] = studysession.session_id
+        data['pdf_url'] = studysession.pdf_file.url
+        data['status'] = 'Session Created Sucessfully '
+        data['finished_at'] = 'Session not closed'
+        return data
+    
