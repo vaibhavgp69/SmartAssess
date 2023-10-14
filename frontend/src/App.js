@@ -18,7 +18,7 @@ function App() {
           <Route path="/pdf" element={<Reader/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/home" element={<Dashboard/>}/>
-          <Route path="/assess" element={<Stopwatch/>}/>
+          <Route path="/assess/:id" element={<Stopwatch/>}/>
       </Routes>
     </BrowserRouter>    
     </div>
