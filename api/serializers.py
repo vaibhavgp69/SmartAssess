@@ -29,6 +29,7 @@ class StudySessionSerializer(serializers.ModelSerializer):
         data['finished_at'] = 'Session not closed'
         data['session_name'] = "Topic : " + studysession.pdf_file.url[7:-4] 
         studysession.session_name = data['session_name']
+        studysession.save()
         return data
     
 class AssessmentSerializer(serializers.ModelSerializer):
