@@ -11,8 +11,8 @@ export function Register(){
 
     const [data,setData] = useState(
         {
-            username:"",
             email:"",
+            username:"",
             password:""
         }
     )
@@ -25,23 +25,25 @@ export function Register(){
     }
 
     const saveAPIData = async()=>{
-        
-        const url = ''
+      console.log(JSON.stringify(data))
+      const url = 'http://127.0.0.1:8000/auth/users/'
         let result = await fetch(url,{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(data)
         })
 
-       result = await result.json()
+       result = await result
        console.log(result)
-       
+       return result;
 
     }
+    console.log(data)
     
     return(
     <div>
-        <Card color="transparent" shadow={false}>
+      <div className="mb-[4rem]"><br></br></div>
+        <Card color="transparent" className="py-[8rem] px-[35rem]" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Sign Up
         </Typography>
@@ -55,7 +57,7 @@ export function Register(){
             <Input onChange={(e)=>handle(e)} id="password" value={data.password} type="password" size="lg" label="Password" required />
           </div>
          
-          <Button type="submit" onSubmit={saveAPIData} className="mt-6" fullWidth>
+          <Button type="button" onClick={saveAPIData} className="mt-6" fullWidth>
             Register
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
@@ -69,4 +71,3 @@ export function Register(){
     </div>
     )
 }
-
