@@ -49,11 +49,11 @@ export function Dashboard(){
 
         <div>
             <div className="mb-[6rem]"><br></br></div>
-            <Typography color="blue-gray" style={{fontSize:'24px',marginLeft:'43rem'}}>
+            <Typography color="blue-gray" style={{fontSize:'24px',marginLeft:'44rem'}}>
                 New Session :
             </Typography>
             <br></br>
-            <Input size="lg" onChange={(e)=>setS(e.target.value)} value={s} className="w-[25rem] ml-[35rem]" />
+            <Input size="lg" onChange={(e)=>setS(e.target.value)} value={s} className="w-[20rem] ml-[38.5rem]" />
             <br></br>
             
             <Button variant="gradient" className="flex items-center gap-1 ml-[39rem]">
