@@ -4,6 +4,9 @@ import { BrowserRouter , Route, Routes } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 import { useLayoutEffect } from 'react'
 import {Topbar} from "./components/Navbar.js";
+import {Reader} from "./components/Reader.js";
+import Stopwatch from "./components/Assess.js";
+
 
 
 function App() {
@@ -12,8 +15,10 @@ function App() {
     <Topbar/>
     <BrowserRouter>
       <Routes>
+          <Route path="/pdf" element={<Reader/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/home" element={<Dashboard/>}/>
+          <Route path="/assess" element={<Stopwatch/>}/>
       </Routes>
     </BrowserRouter>    
     </div>

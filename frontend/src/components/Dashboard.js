@@ -13,10 +13,28 @@ import { Link } from "react-router-dom";
 export function Dashboard(){
     const [library,setLibrary] = useState([])
     const [data,setData] = useState()
+    const [s,setS] = useState()
 
     useEffect(()=>{
         getAPIData()
     },[])
+
+    const saveAPIData = async()=>{
+        console.log(data)
+        console.log(s)
+        const url = 'http://127.0.0.1:8000/api/newsession'
+        let formData = new FormData()
+        formData.append('session_name',s)
+        formData.append('pdf_file',data)
+        let result = await fetch(url,{
+            method:"POST",
+            body:formData
+        })
+
+       result = await result.json()
+       console.log(result)
+       window.location.reload()       
+    }
 
     const getAPIData = async()=>{
         
@@ -27,17 +45,15 @@ export function Dashboard(){
         console.log(library)
     }
 
-    const [s,setS] = useState()
-    console.log(s)
     return(
 
         <div>
             <div className="mb-[6rem]"><br></br></div>
-            <Typography color="blue-gray" style={{fontSize:'24px',marginLeft:'43rem'}}>
+            <Typography color="blue-gray" style={{fontSize:'24px',marginLeft:'44rem'}}>
                 New Session :
             </Typography>
             <br></br>
-            <Input size="lg" onChange={(e)=>setS(e.target.value)} value={s} className="w-[25rem] ml-[35rem]" />
+            <Input size="lg" onChange={(e)=>setS(e.target.value)} value={s} className="w-[20rem] ml-[38.5rem]" />
             <br></br>
             
             <Button variant="gradient" className="flex items-center gap-1 ml-[39rem]">
@@ -62,7 +78,7 @@ export function Dashboard(){
       </Button>
             <br></br>
         
-            <Button className="mb-5 ml-[45rem]">Submit</Button>
+            <Button className="mb-5 ml-[45rem]" onClick={saveAPIData}>Submit</Button>
             
 
             <div style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}}>
@@ -79,7 +95,7 @@ export function Dashboard(){
       <CardBody>
         <div className="mb-2 flex items-center justify-between">
           <Typography color="blue-gray" className="font-large" style={{fontFamily:"cursive",fontSize:"20px",textAlign:"justify"}}>
-            {i.session_name.slice(8,)}
+            {i.session_name}
           </Typography>
           
         </div>
