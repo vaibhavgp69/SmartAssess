@@ -42,7 +42,7 @@ const hours = Math.floor(time / 360000);
 const minutes = Math.floor((time % 360000) / 6000);
 
 const seconds = Math.floor((time % 6000) / 100);
-
+var i = 1
 const milliseconds = time % 100;
 
 const saveAPIData2 = async()=>{
@@ -101,6 +101,10 @@ const saveAPIData2 = async()=>{
       <br></br>
         <Typography variant="h2" className="ml-[35rem]" >
       The Correct Answer was {data.correct_answer}
+      </Typography>
+      <br></br>
+      <Typography variant="h2" className="ml-[35rem]" >
+      You are currently at {data.dif_score} rating
       </Typography>
       </div>
     :

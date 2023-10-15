@@ -6,7 +6,7 @@ import openai
 import requests
 import string
 openai.organization = "org-0rNALC6h9eXouuM3JxZsQuBx"                     
-openai.api_key = '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'
+openai.api_key = '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'
 import json
 import ast
 
