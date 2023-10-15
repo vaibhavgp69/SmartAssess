@@ -6,7 +6,8 @@ import openai
 import requests
 import string
 openai.organization = "org-0rNALC6h9eXouuM3JxZsQuBx"                     
-openai.api_key = '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'
+openai.api_key = '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'
+
 import json
 import ast
 
@@ -42,7 +43,7 @@ class StudySessionSerializer(serializers.ModelSerializer):
     
 class AssessmentSerializer(serializers.ModelSerializer):
     status = serializers.CharField(required=False, read_only=True)
-    score = serializers.IntegerField(required=False, read_only=True)
+    score = serializers.DecimalField(required=False, read_only=True,max_digits=4, decimal_places=2)
     pdf_url = serializers.CharField(required=False, read_only=True)
     assessment_id = serializers.CharField(required=False, read_only=True)
     class Meta:
@@ -88,6 +89,7 @@ class McqSerializer(serializers.ModelSerializer):
         res = json.loads(req["content"])
         print(req["content"])
         mcq = Mcq.objects.all()
+
         if len(mcq) == 0 :
 
             new_mcq = Mcq.objects.create(
@@ -98,10 +100,13 @@ class McqSerializer(serializers.ModelSerializer):
             time_taken = data['time_taken'],
             difficulty_score = diff,
                 )
+            
         else:
             prev_mcq = Mcq.objects.get(pk = len(mcq))
             prev_mcq.is_correct = data['is_correct']
             prev_mcq.time_taken = data['time_taken']
+            current_assessment.score  = float(current_assessment.score) + float(diff)
+            current_assessment.save()
             # prev_mcq.difficulty_score = diff       
             prev_mcq.save()
             
@@ -117,7 +122,7 @@ class McqSerializer(serializers.ModelSerializer):
                 data['option_d'] = res['options']['d']
                 data['correct_answer'] = res['correct_answer']
 
-            except KeyError:
+            except KeyError or TypeError:
                 try:
 
                     data['option_a'] = res['options']['A']
@@ -142,7 +147,7 @@ class McqSerializer(serializers.ModelSerializer):
             gen_question = data['gen_question'],
             is_correct = data['is_correct'],
             time_taken = data['time_taken'],
-            difficulty_score = diff
+            difficulty_score = diff,
         )
         new_mcq.save()
         data['status'] = 'Assesment created Sucessfully'
@@ -153,7 +158,7 @@ class McqSerializer(serializers.ModelSerializer):
         response_time_weight = 5
         max_response_time = 200  #200 seconds
 
-        if True:
+        if is_correct:
             accuracy_score=5
         else:
             accuracy_score=0
@@ -181,6 +186,42 @@ class McqSerializer(serializers.ModelSerializer):
         res=completion.choices[0].message
         return(res)
     
+
+
+class PlotSerializer(serializers.ModelSerializer):
+    easy = serializers.CharField(required=False, read_only=True)
+    medium = serializers.CharField(required=False, read_only=True)
+    hard = serializers.CharField(required=False, read_only=True)
+    time_taken_easy = serializers.CharField(required=False, read_only=True)
+    time_taken_hard = serializers.CharField(required=False, read_only=True)
+    time_taken_medium = serializers.CharField(required=False, read_only=True)
+    topics = serializers.CharField(required=False, read_only=True)
+
+
+
+    class Meta:
+        model = Assessment
+        fields = ['session_id','easy','medium','hard','time_taken_easy','time_taken_medium','time_taken_hard', 'topics']
+    
+    def create(self,data):
+        session_uuid = uuid.UUID(data['session_id']) 
+        current_session = StudySession.objects.get(session_id = session_uuid)
+
+        all_assessments = Assessment.objects.filter(assesment_id =current_session)
+        topic_data = all_assessments.values_list('topic')
+
+        print(topic_data)
+        data['easy'] = "<QuerySet [('question-id-5',), ('question-id-3',)]>"
+        data['medium'] = "<QuerySet [('question-id-7',), ('question-id-2',)]>"
+        data['hard'] = "<QuerySet [('question-id-1',), ('question-id-4',)]>"
+        data['time_taken_easy'] = "<QuerySet [('45',), ('10',)]>"
+        data['time_taken_medium'] = "<QuerySet [('66',), ('34',)]>"
+        data['time_taken_hard'] = "<QuerySet [('122',), ('33',)]>"
+        data['topics'] = topic_data
+        return data
+
+        
+
 
 
 

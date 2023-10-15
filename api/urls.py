@@ -15,5 +15,6 @@ urlpatterns = [
     path('newsession', views.StudySessionView.as_view(), name = 'newsession'),
     path('newassessment', views.AssesmentView.as_view(), name = 'newassessment'),
     path('newmcq', views.McqView.as_view(), name = 'newmcq'),
+    path('plot', views.PlotView.as_view(), name='plot')
 
 ]
