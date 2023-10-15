@@ -5,6 +5,7 @@ import {
   Typography,
   Button,
   IconButton,
+  Input,
 } from "@material-tailwind/react";
  
 export function Topbar() {
@@ -19,6 +20,9 @@ export function Topbar() {
  
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+
+      <Input className="w-[35rem]" label="Enter prompt for tutoring (premium members only)"/>
+
       <Typography
         as="li"
         variant="small"
@@ -26,7 +30,7 @@ export function Topbar() {
         className="p-1 font-normal"
       >
         <a href="/home" className="flex items-center">
-          Home
+          Chat
         </a>
       </Typography>
       <Typography
@@ -36,7 +40,7 @@ export function Topbar() {
         className="p-1 font-normal"
       >
         <a href="#about" className="flex items-center">
-          About
+          Assessments
         </a>
       </Typography>
       <Typography
@@ -46,29 +50,10 @@ export function Topbar() {
         className="p-1 font-normal"
       >
         <a href="#news" className="flex items-center">
-          News 
+          Analyse 
         </a>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#venue" className="flex items-center">
-          Venue
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#images" className="flex items-center">
-          Images
-        </a>
-      </Typography>
+      
       <Typography
         as="li"
         variant="small"
