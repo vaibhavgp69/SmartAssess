@@ -6,7 +6,12 @@ import openai
 import requests
 import string
 openai.organization = "org-0rNALC6h9eXouuM3JxZsQuBx"                     
+<<<<<<< Updated upstream
 openai.api_key = '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'
+=======
+openai.api_key = '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'
+
+>>>>>>> Stashed changes
 import json
 import ast
 
